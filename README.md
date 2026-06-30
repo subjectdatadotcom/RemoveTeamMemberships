@@ -1,4 +1,4 @@
-# Remove-TeamMemberships.ps1
+# Teams Membership Removal Toolkit
 
 > 📁 **Before running:** Create an empty `reports` folder in the same directory as the script. All output files will be written there.
 
