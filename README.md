@@ -136,7 +136,6 @@ This guarantees no Team is ever left without an owner as a result of running thi
 - **Tenant matching matters.** Target users must exist in the same tenant the app is registered in. A UPN from a different tenant will log as `NOT FOUND` and be skipped.
 - **Idempotency.** Re-running against users who have already been removed simply finds no remaining memberships for them — safe to re-run.
 - **Rate limiting.** Short delays are built in between Graph calls to avoid throttling on large batches; expect roughly 2–4 seconds per membership processed.
-- **CSV over JSON.** The audit format is CSV (not JSON) so it stays reviewable in Excel and scales cleanly to tenants with thousands of Teams.
 
 ---
 
