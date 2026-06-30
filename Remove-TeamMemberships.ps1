@@ -225,38 +225,7 @@ Write-Log "═══ Starting live membership removal ═══"
 foreach ($rec in $AuditRecords) {
     $rec.ProcessedAt = (Get-Date -Format "o")
     Write-Log "Processing: $($rec.UserUpn)  →  $($rec.TeamName)  [$($rec.RoleInTeam)]"
-
-    # try {
-    #     # Step 1 — sole owner guard
-    #     if ($rec.IsSoleOwner) {
-    #         Write-Log "  Sole owner — checking if service account already present..."
-    #         $svcEntry = Get-TeamMembershipEntry -TeamId $rec.TeamId -UserId $SvcUser.Id
-    #         if ($svcEntry -and ($svcEntry.Roles -contains "owner")) {
-    #             Write-Log "  Service account already an owner — skipping add." "WARN"
-    #         } else {
-    #             Write-Log "  Adding service account as owner..."
-    #             Add-TeamOwnerByUserId -TeamId $rec.TeamId -UserId $SvcUser.Id
-    #             $rec.ServiceAcctAdded = $true
-    #             Write-Log "  Service account added as owner." "SUCCESS"
-    #             Start-Sleep -Milliseconds 500   # let Graph replicate
-    #         }
-    #     }
-
-    #     # Step 2 — refresh membership ID in case it changed
-    #     $freshEntry = Get-TeamMembershipEntry -TeamId $rec.TeamId -UserId $rec.UserId
-    #     if (-not $freshEntry) {
-    #         Write-Log "  User no longer a member (already removed?)." "WARN"
-    #         $rec.Removed = $true; $rec.Result = "AlreadyGone"
-    #         continue
-    #     }
-
-    #     # Step 3 — remove
-    #     Remove-MgTeamMember -TeamId $rec.TeamId -ConversationMemberId $freshEntry.Id
-    #     $rec.Removed = $true
-    #     $rec.Result  = "Removed"
-    #     Write-Log "  Removed successfully." "SUCCESS"
-
-    # } 
+    
     try {
         # Step 1 — sole owner guard
         if ($rec.IsSoleOwner) {
@@ -340,13 +309,6 @@ $AuditRecords |
                   ServiceAcctAdded, Removed, Result, ErrorDetail, ProcessedAt, TeamId, UserId |
     Export-Csv -Path $PostResultCsv -NoTypeInformation -Encoding utf8 -WhatIf:$false
 Write-Log "  POST results CSV : $PostResultCsv" "SUCCESS"
-
-# ── SUMMARY ───────────────────────────────────────────────────────────────────
-# $total    = $AuditRecords.Count
-# $removed  = ($AuditRecords | Where-Object { $_.Result -eq "Removed" }).Count
-# $svcAdded = ($AuditRecords | Where-Object { $_.ServiceAcctAdded }).Count
-# $failed   = ($AuditRecords | Where-Object { $_.Result -eq "Failed" }).Count
-# $gone     = ($AuditRecords | Where-Object { $_.Result -eq "AlreadyGone" }).Count
 
 $total    = @($AuditRecords).Count
 $removed  = @($AuditRecords | Where-Object { $_.Result -eq "Removed" }).Count
