@@ -1,6 +1,6 @@
 # Remove-TeamMemberships.ps1
 
-To execute the script, create an empty **reports** folder in the same directory. The output files will be stored in this folder.
+> 📁 **Before running:** Create an empty `reports` folder in the same directory as the script. All output files will be written there.
 
 Bulk-removes a list of users from every Microsoft Teams team they belong to (as Member or Owner) using Microsoft Graph, with a full pre-change audit trail and post-change results log. Protects any Team from being left ownerless by promoting a designated service account before removing a sole owner.
 
