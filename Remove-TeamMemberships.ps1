@@ -16,17 +16,17 @@
 
 .EXAMPLE
     # Dry-run — always do this first
-    .\Remove-TeamMemberships.ps1 -CsvPath .\users.csv -ServiceAccount "admin@M365x64332454.onmicrosoft.com" `
+    .\Remove-TeamMemberships.ps1 -CsvPath .\users.csv -ServiceAccount "admin@M365x6433245.onmicrosoft.com" `
         -TenantId "fbbda3de-75be-40ae-8319-8738189a37e5" `
         -ClientId "3756b518-287a-408a-8e22-befcafdbed63" `
-        -Thumbprint "8E6DF2A647740F73E39C80DD3153A182510E04E5" -WhatIf
+        -Thumbprint "8E6DF2A647740" -WhatIf
 
 .EXAMPLE
     # Live run
-    .\Remove-TeamMemberships.ps1 -CsvPath .\users.csv -ServiceAccount "admin@M365x64332454.onmicrosoft.com" `
+    .\Remove-TeamMemberships.ps1 -CsvPath .\users.csv -ServiceAccount "admin@M365x6433245.onmicrosoft.com" `
         -TenantId "fbbda3de-75be-40ae-8319-8738189a37e5" `
         -ClientId "3756b518-287a-408a-8e22-befcafdbed63" `
-        -Thumbprint "8E6DF2A647740F73E39C80DD3153A182510E04E5"
+        -Thumbprint "8E6DF2A64774"
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
